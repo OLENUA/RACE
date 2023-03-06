@@ -1,12 +1,25 @@
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
-public class road extends JPanel {
+public class road extends JPanel implements ActionListener {
     Image img = new ImageIcon("res/map.png").getImage();
-    private Graphics2D g;
+    PlayerCar p = new PlayerCar();
+    Timer mainTimer = new Timer(20,this) ;
+    public void paint(Graphics g) {
+        g.drawImage(img, p.label1,0,null);
+        g.drawImage(p.img, p.x , p.y , null);
+    }
 
-    public void paint(Graphics2D g){
-        this.g = g;
-        g.drawImage(img, 0,0,null);
+    public road(){
+        mainTimer.start();
+    }
+    public void actionPerformed(ActionEvent event){
+        p.move();
+        repaint();
     }
 }
